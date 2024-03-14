@@ -25,12 +25,12 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
     }
 
     return (
-        <main>
+        <main className="h-full">
             <Image
                 src={`/assets/gifs/${selectedImage}`}
-                alt={id}
-                width={200}
+                alt={data.name}
                 height={200}
+                width={200}
             />
         </main>
     );
