@@ -31,6 +31,7 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
                 alt={data.name}
                 height={200}
                 width={200}
+                unoptimized
             />
         </main>
     );
