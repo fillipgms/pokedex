@@ -1,22 +1,12 @@
 import Image from "next/image";
 import PokeAPI from "pokedex-promise-v2";
 import React from "react";
+import PokemonDisplay from "./PokemonDisplay";
+import generations from "@/data/generations";
 
 interface AllPokemonInfo {
     gen: string | string[];
 }
-
-const genCount = {
-    1: { count: 151, offset: 0 },
-    2: { count: 100, offset: 151 },
-    3: { count: 135, offset: 251 },
-    4: { count: 107, offset: 386 },
-    5: { count: 156, offset: 493 },
-    6: { count: 72, offset: 649 },
-    7: { count: 88, offset: 721 },
-    8: { count: 96, offset: 809 },
-    9: { count: 120, offset: 905 },
-};
 
 const AllPokemon = async (gen: AllPokemonInfo) => {
     const baseUrl = "https://pokeapi.co/api/v2/";
@@ -26,8 +16,8 @@ const AllPokemon = async (gen: AllPokemonInfo) => {
 
     const res = await fetch(
         `${baseUrl}pokemon?limit=${
-            genCount[parseGen as keyof typeof genCount].count
-        }&offset=${genCount[parseGen as keyof typeof genCount].offset}`
+            generations[parseGen as keyof typeof generations].count
+        }&offset=${generations[parseGen as keyof typeof generations].offset}`
     );
     const data = await res.json();
 
@@ -48,18 +38,7 @@ const AllPokemon = async (gen: AllPokemonInfo) => {
     return (
         <div className="px-5 md:px-12 grid grid-cols-[repeat(auto-fit,_minmax(100px,1fr))] justify-items-center content-center gap-3">
             {pokemonInfoArray.map((poke: PokeAPI.Pokemon) => (
-                <a
-                    href={`/${poke.name}`}
-                    key={poke.id}
-                    className=" bg-white/25 rounded-md"
-                >
-                    <Image
-                        src={poke.sprites.front_default}
-                        alt={poke.name}
-                        height={96}
-                        width={96}
-                    />
-                </a>
+                <PokemonDisplay {...poke} />
             ))}
         </div>
     );

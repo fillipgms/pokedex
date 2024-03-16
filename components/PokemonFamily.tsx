@@ -1,6 +1,7 @@
 import PokeAPI from "pokedex-promise-v2";
 import React from "react";
 import Image from "next/image";
+import PokemonDisplay from "./PokemonDisplay";
 
 const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
     const baseUrl = "https://pokeapi.co/api/v2";
@@ -27,19 +28,8 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
 
     return (
         <div className="flex gap-2">
-            {evolutionData.map((evolution, index) => (
-                <a
-                    href={`/${evolution.name}`}
-                    key={index}
-                    className=" bg-white/25 rounded-md"
-                >
-                    <Image
-                        src={evolution.sprites.front_default}
-                        alt={evolution.name}
-                        height={96}
-                        width={96}
-                    />
-                </a>
+            {evolutionData.map((evolution) => (
+                <PokemonDisplay {...evolution} />
             ))}
         </div>
     );
