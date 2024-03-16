@@ -28,7 +28,11 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
     return (
         <div className="flex gap-2">
             {evolutionData.map((evolution, index) => (
-                <a href={`/${evolution.name}`} key={index}>
+                <a
+                    href={`/${evolution.name}`}
+                    key={index}
+                    className=" bg-white/25 rounded-md"
+                >
                     <Image
                         src={evolution.sprites.front_default}
                         alt={evolution.name}

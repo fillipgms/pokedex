@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import PokeAPI from "pokedex-promise-v2";
 import PokemonFamily from "@/components/PokemonFamily";
+import types from "@/data/types";
 
 interface HomePageProps {
     params: {
@@ -23,23 +24,53 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
     );
 
     return (
-        <main className="bg-gradient-to-tr from-pink-200 to-sky-200 h-svh flex *:flex-1">
-            <div></div>
-            <div className="flex flex-col items-center justify-center">
-                <Image
-                    src={
-                        selectedImage
-                            ? `/assets/gifs/${selectedImage}`
-                            : data.sprites.front_default
-                    }
-                    alt={data.name}
-                    height={200}
-                    width={200}
-                    unoptimized
-                    priority
-                />
-                <PokemonFamily {...data} />
-            </div>
+        <main className="bg-gradient-to-tr from-pink-200 to-sky-200 h-svh">
+            <header className="flex font-bold gap-5 items-center capitalize py-3 px-5">
+                <h2>{data.name}</h2>
+                <div className="flex gap-3">
+                    {data.types.map((type, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                background: types[type.type.name].bg,
+                            }}
+                            className="flex items-center  text-white uppercase gap-1 overflow-hidden rounded-md"
+                        >
+                            <Image
+                                src={types[type.type.name].icon}
+                                alt={type.type.name}
+                                height={30}
+                                width={30}
+                                style={{
+                                    background: types[type.type.name].color,
+                                }}
+                                className="p-1"
+                            />
+                            <span className="px-2">{type.type.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </header>
+            <main className="flex md:flex-row flex-col *:flex-1">
+                <section>
+                    <Image
+                        src={
+                            selectedImage
+                                ? `/assets/gifs/${selectedImage}`
+                                : data.sprites.front_default
+                        }
+                        alt={data.name}
+                        height={200}
+                        width={200}
+                        unoptimized
+                        priority
+                        className="h-64 w-64 object-contain"
+                    />
+
+                    <PokemonFamily {...data} />
+                </section>
+                <div></div>
+            </main>
         </main>
     );
 }
