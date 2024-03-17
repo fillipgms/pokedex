@@ -15,8 +15,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body className={`${wix.className} h-full bg-grass`}>
+        <html lang="en" className="h-full">
+            <body className={`${wix.className} bg-grass h-full`}>
                 {children}
             </body>
         </html>
