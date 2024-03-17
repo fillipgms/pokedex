@@ -1,11 +1,10 @@
-import Image from "next/image";
-import fs from "fs/promises";
-import path from "path";
 import PokeAPI from "pokedex-promise-v2";
 import PokemonFamily from "@/components/PokemonFamily";
 import types from "@/data/types";
 import { IoIosArrowBack } from "react-icons/io";
 import generations from "@/data/generations";
+import TypesDisplay from "@/components/TypesDisplay";
+import PokemonImage from "@/components/PokemonImage";
 
 interface HomePageProps {
     params: {
@@ -16,20 +15,13 @@ interface HomePageProps {
 export default async function PokemonPage({ params: { id } }: HomePageProps) {
     const baseUrl = "https://pokeapi.co/api/v2/";
     const res = await fetch(`${baseUrl}pokemon/${id}`);
-    const data = (await res.json()) as PokeAPI.Pokemon;
-
-    const imagesDir = path.join(process.cwd(), "public/assets/gifs");
-    const imageFiles = await fs.readdir(imagesDir);
-
-    const selectedImage = imageFiles.find((file) =>
-        file.toLowerCase().includes(id.toLowerCase())
-    );
+    const pokemon = (await res.json()) as PokeAPI.Pokemon;
 
     let generation: string | number = 1;
     for (const key in generations) {
         if (Object.prototype.hasOwnProperty.call(generations, key)) {
             const gen = generations[key];
-            if (data.id <= gen.offset + gen.count) {
+            if (pokemon.id <= gen.offset + gen.count) {
                 generation = key;
                 break;
             }
@@ -37,56 +29,53 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
     }
 
     return (
-        <main className="bg-gradient-to-tr from-pink-200 to-sky-200 h-svh">
-            <header className="flex font-bold gap-5 items-center just-around capitalize py-3 px-4 md:px-10">
+        <>
+            <header className="py-2 px-4 md:px-16 flex items-center gap-3 capitalize font-semibold">
                 <a href={`/?gen=${generation}`}>
                     <IoIosArrowBack />
                 </a>
-                <h2>{data.name}</h2>
-                <div className="flex gap-3">
-                    {data.types.map((type, index) => (
-                        <div
-                            key={index}
-                            style={{
-                                background: types[type.type.name].bg,
-                            }}
-                            className="flex items-center text-white uppercase  overflow-hidden rounded-md"
-                        >
-                            <Image
-                                src={types[type.type.name].icon}
-                                alt={type.type.name}
-                                height={30}
-                                width={30}
-                                style={{
-                                    background: types[type.type.name].color,
-                                }}
-                                className="p-1"
-                            />
-                            <span className="px-3">{type.type.name}</span>
-                        </div>
-                    ))}
-                </div>
+                <span>{pokemon.name}</span>
             </header>
-            <main className="flex h-full items-center md:flex-row flex-col *:flex-1">
-                <section className="md:px-10 px-4 flex items-center flex-col justify-center space-y-3">
-                    <Image
-                        src={
-                            selectedImage
-                                ? `/assets/gifs/${selectedImage}`
-                                : data.sprites.front_default
-                        }
-                        alt={data.name}
-                        height={200}
-                        width={200}
-                        unoptimized
-                        priority
-                        className="h-64 w-64 object-contain"
-                    />
+            <main className="flex md:flex-row flex-col md:*:flex-1">
+                <section className="flex items-center justify-center">
+                    <div className="max-w-sm">
+                        <div
+                            className="text-center py-2 font-bold text-white capitalize"
+                            style={{
+                                background: `${
+                                    types[pokemon.types[0].type.name].bg
+                                }CC`,
+                            }}
+                        >
+                            <h2>{pokemon.name}</h2>
+                        </div>
+                        <div
+                            style={{
+                                background: `${
+                                    types[pokemon.types[0].type.name].color
+                                }40`,
+                            }}
+                            className="w-fit py-3  px-5 "
+                        >
+                            <PokemonImage {...pokemon} />
+                        </div>
 
-                    <PokemonFamily {...data} />
+                        <div
+                            className="flex justify-center flex-wrap gap-3 py-3"
+                            style={{
+                                background: `${
+                                    types[pokemon.types[0].type.name].bg
+                                }CC`,
+                            }}
+                        >
+                            {pokemon.types.map((type) => (
+                                <TypesDisplay {...type} key={type.type.name} />
+                            ))}
+                        </div>
+                    </div>
                 </section>
-                <div></div>
+                <section>oi</section>
             </main>
-        </main>
+        </>
     );
 }

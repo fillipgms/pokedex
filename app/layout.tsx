@@ -16,7 +16,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${wix.className} h-full`}>{children}</body>
+            <body className={`${wix.className} h-full bg-grass`}>
+                {children}
+            </body>
         </html>
     );
 }

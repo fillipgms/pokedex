@@ -27,7 +27,7 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
     );
 
     return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-center">
             {evolutionData.map((evolution) => (
                 <PokemonDisplay {...evolution} />
             ))}

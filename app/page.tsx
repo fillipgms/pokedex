@@ -11,7 +11,7 @@ export default function Home({
     const gen = searchParams["gen"] ?? "1";
 
     return (
-        <main className="bg-gradient-to-tr from-pink-200 to-sky-200">
+        <main>
             <GenerationHeader />
             <Suspense fallback={<HomeLoading />}>
                 <AllPokemon gen={gen} />
