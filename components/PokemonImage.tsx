@@ -3,7 +3,6 @@ import Image from "next/image";
 import PokeAPI from "pokedex-promise-v2";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import loading from "@/public/assets/loading.gif";
 import types from "@/data/types";
 
 const PokemonImage = (pokemon: PokeAPI.Pokemon) => {
@@ -12,6 +11,7 @@ const PokemonImage = (pokemon: PokeAPI.Pokemon) => {
 
     useEffect(() => {
         async function fetchImage() {
+            setSelectedImage("");
             const isMega = searchParams.get("mega") === "true";
             const isFemale = searchParams.get("female") === "true";
 
@@ -47,29 +47,25 @@ const PokemonImage = (pokemon: PokeAPI.Pokemon) => {
         }
     }
 
-    if (selectedImage === "") {
-        return (
-            <div className="md:w-[22.5rem] md:h-[21.5rem] py-3  px-5  w-full aspect-square flex items-center justify-center">
-                carregando
-            </div>
-        );
-    }
-
     return (
         <div
+            className={`${
+                selectedImage === "" ? " max-h-0" : "max-h-96 py-3 px-5"
+            } transition-all duration-300 md:w-[22.5rem] w-fit -z-[1] relative`}
             style={{
                 background: `${types[pokemon.types[0].type.name].color}40`,
             }}
-            className="w-fit py-3  px-5 "
         >
-            <Image
-                src={selectedImage as string}
-                alt={pokemon.name}
-                height={200}
-                width={200}
-                className="md:w-80 md:h-80 w-full aspect-square object-contain"
-                unoptimized
-            />
+            {selectedImage && (
+                <Image
+                    src={selectedImage as string}
+                    alt={pokemon.name}
+                    height={200}
+                    width={200}
+                    className="md:w-80 md:h-80 w-full aspect-square object-contain"
+                    unoptimized
+                />
+            )}
         </div>
     );
 };

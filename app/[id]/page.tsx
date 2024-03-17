@@ -58,14 +58,14 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
 
                         <PokemonImage {...pokemon} />
 
-                        <div className="flex justify-center bg-zinc-100 flex-wrap gap-3 py-4">
+                        <div className="flex justify-center z-[2] bg-zinc-100 flex-wrap gap-3 py-4">
                             {pokemon.types.map((type) => (
                                 <TypesDisplay {...type} key={type.type.name} />
                             ))}
                         </div>
                     </div>
                 </section>
-                <section>oi</section>
+                <section></section>
             </main>
         </>
     );
