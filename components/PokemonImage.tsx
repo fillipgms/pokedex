@@ -28,9 +28,7 @@ const PokemonImage = (pokemon: PokeAPI.Pokemon) => {
                 setSelectedImage(imagePath);
             } else {
                 setSelectedImage(
-                    isFemale
-                        ? pokemon.sprites.front_female
-                        : pokemon.sprites.front_default
+                    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`
                 );
             }
         }
