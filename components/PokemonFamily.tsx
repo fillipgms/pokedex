@@ -1,6 +1,5 @@
 import PokeAPI from "pokedex-promise-v2";
 import React from "react";
-import Image from "next/image";
 import PokemonDisplay from "./PokemonDisplay";
 
 const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
@@ -14,10 +13,16 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
     const evolutionUrls: string[] = [];
 
     let currentEvo = familyData.chain;
-    while (currentEvo) {
-        evolutionUrls.push(`${baseUrl}/pokemon/${currentEvo.species.name}`);
-        currentEvo = currentEvo.evolves_to[0];
-    }
+
+    const addEvolutionsToList = (evoChain: PokeAPI.ChainLink) => {
+        if (!evoChain) return;
+        evolutionUrls.push(`${baseUrl}/pokemon/${evoChain.species.name}`);
+        evoChain.evolves_to.forEach((evolution) =>
+            addEvolutionsToList(evolution)
+        );
+    };
+
+    addEvolutionsToList(currentEvo);
 
     const evolutionResponses = await Promise.all(
         evolutionUrls.map((url) => fetch(url))
@@ -28,8 +33,8 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
 
     return (
         <div className="flex gap-2 justify-center">
-            {evolutionData.map((evolution) => (
-                <PokemonDisplay {...evolution} />
+            {evolutionData.map((evolution, i) => (
+                <PokemonDisplay {...evolution} key={i} />
             ))}
         </div>
     );

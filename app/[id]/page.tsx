@@ -65,7 +65,9 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
                         </div>
                     </div>
                 </section>
-                <section></section>
+                <section>
+                    <PokemonFamily {...pokemon} />
+                </section>
             </main>
         </>
     );
