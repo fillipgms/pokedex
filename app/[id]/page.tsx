@@ -5,6 +5,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import generations from "@/data/generations";
 import TypesDisplay from "@/components/TypesDisplay";
 import PokemonImage from "@/components/PokemonImage";
+import PokemonDetails from "@/components/PokemonDetails";
 
 interface HomePageProps {
     params: {
@@ -44,7 +45,7 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
                 </a>
                 <span>{pokemon.name}</span>
             </header>
-            <main className="flex h-full md:pt-12 pt-20 md:flex-row flex-col md:*:flex-1">
+            <main className="flex h-full md:pt-12 pt-20 md:flex-row md:gap-0 gap-3 flex-col md:*:flex-1">
                 <section className="flex items-center justify-center md:px-00 px-10">
                     <div className="max-w-sm shadow-xl rounded-sm overflow-hidden">
                         <div className="text-center py-3 bg-red-600 text-white font-bold capitalize">
@@ -65,8 +66,8 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
                         </div>
                     </div>
                 </section>
-                <section>
-                    <PokemonFamily {...pokemon} />
+                <section className="flex items-center justify-center px-0 md:px-10">
+                    <PokemonDetails {...pokemon} />
                 </section>
             </main>
         </>
