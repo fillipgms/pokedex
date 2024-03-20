@@ -11,7 +11,7 @@ const PokemonDetails = async (pokemon: PokeAPI.Pokemon) => {
     return (
         <div
             style={{ borderColor: types[pokemon.types[0].type.name].color }}
-            className="my-6 bg-zinc-100 w-full shadow-lg  h-5/6 rounded-md"
+            className="my-6 bg-zinc-100 w-full shadow-lg md:h-5/6 rounded-md"
         >
             <PokemonFamily {...pokemon} />
         </div>
