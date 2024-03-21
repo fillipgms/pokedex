@@ -26,7 +26,7 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
 
     const renderEvolutions = (evolutions: PokeAPI.ChainLink[]) => {
         return evolutions.map((evo) => (
-            <div key={evo.species.name} className="flex  items-center gap-3">
+            <div key={evo.species.name} className="flex items-center gap-3">
                 <IoIosArrowForward />
                 <PokemonDisplay {...evo} />
                 <div>{evo.evolves_to && renderEvolutions(evo.evolves_to)}</div>
@@ -39,7 +39,18 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
             <div>
                 <PokemonDisplay {...firstEvo} />
             </div>
-            <div>{renderEvolutions(firstEvo.evolves_to)}</div>
+            {firstEvo.evolves_to.length > 3 ? (
+                <div className="flex items-center">
+                    <IoIosArrowForward />
+                    <div className="grid grid-cols-3">
+                        {firstEvo.evolves_to.map((evo) => (
+                            <PokemonDisplay {...evo} />
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                renderEvolutions(firstEvo.evolves_to)
+            )}
         </div>
     );
 };

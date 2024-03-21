@@ -39,14 +39,14 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
 
     return (
         <>
-            <header className="py-3 bg-zinc-100 shadow-xl z-[3] fixed w-full px-5 md:px-16 flex items-center gap-3 capitalize font-semibold">
+            <header className="py-3 bg-zinc-100 shadow-xl z-[3] fixed w-full md:px-16 flex items-center gap-3 capitalize font-semibold">
                 <a href={`/?gen=${generation}`}>
                     <IoIosArrowBack />
                 </a>
                 <span>{pokemon.name}</span>
             </header>
-            <main className="flex h-full md:pt-12 pt-20 md:flex-row md:gap-0 gap-3 flex-col md:*:flex-1">
-                <section className="flex items-center justify-center md:px-00 px-10">
+            <main className="flex h-full md:pt-12 pt-20 md:flex-row md:gap-10 px-7 justify-center gap-3 flex-col">
+                <section className="flex items-center justify-center ">
                     <div className="max-w-sm shadow-xl rounded-sm overflow-hidden">
                         <div className="text-center py-3 bg-red-600 text-white font-bold capitalize">
                             <h2>{pokemon.name}</h2>
@@ -66,7 +66,7 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
                         </div>
                     </div>
                 </section>
-                <section className="flex items-center justify-center px-0 md:px-10">
+                <section className="flex items-center justify-center ">
                     <PokemonDetails {...pokemon} />
                 </section>
             </main>
