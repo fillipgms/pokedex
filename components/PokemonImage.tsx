@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import types from "@/data/types";
 import { MdCatchingPokemon } from "react-icons/md";
+import PokeballIcon from "@/public/PokeballIcon.svg";
+import TypesDisplay from "./TypesDisplay";
 
 const PokemonImage = (pokemon: PokeAPI.Pokemon) => {
     const [selectedImage, setSelectedImage] = useState<string>("");
@@ -47,34 +49,41 @@ const PokemonImage = (pokemon: PokeAPI.Pokemon) => {
     }
 
     return (
-        <div
-            className={`${
-                selectedImage === "" ? " max-h-0" : "max-h-96 py-3 px-5"
-            } transition-all duration-300 md:w-[22.5rem] w-fit -z-[1] relative`}
-            style={{
-                background: `${types[pokemon.types[0].type.name].color}40`,
-            }}
-        >
-            {selectedImage && (
-                <Image
-                    src={selectedImage as string}
-                    alt={pokemon.name}
-                    height={200}
-                    width={200}
-                    className="md:w-80 md:h-80 w-full aspect-square object-contain"
-                    unoptimized
-                />
-            )}
+        <div className="max-w-sm w-full shadow-xl rounded-sm overflow-hidden">
+            <div className="text-center py-3 bg-red-600 text-white font-bold capitalize">
+                <h2>{pokemon.name}</h2>
+            </div>
 
-            <span className="absolute top-1/2 left-1/2 opacity-25 -translate-x-1/2 rounded-full overflow-hidden -translate-y-1/2 -z-[1] min-h-64 min-w-64 flex flex-col">
-                <div className="bg-red-600 rounded-t-full flex-1"></div>
-                <div className="block bg-slate-800 h-5 w-full relative">
-                    <span className="rounded-full flex items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-slate-800">
-                        <span className="block bg-white h-8 w-8 rounded-full"></span>
-                    </span>
-                </div>
-                <div className="flex-1 bg-white  rounded-b-full"></div>
-            </span>
+            <div className="block bg-slate-800 h-3 w-full relative">
+                <span className="rounded-full flex items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-slate-800">
+                    <span className="block bg-white h-5 w-5 rounded-full"></span>
+                </span>
+            </div>
+
+            <div
+                className={`${
+                    selectedImage === "" ? " max-h-0" : "max-h-96 py-3 px-5"
+                } transition-all duration-300 w-full flex items-center justify-center  -z-[1] relative`}
+                style={{
+                    background: `${types[pokemon.types[0].type.name].color}40`,
+                }}
+            >
+                {selectedImage && (
+                    <Image
+                        src={selectedImage as string}
+                        alt={pokemon.name}
+                        height={200}
+                        width={200}
+                        className="md:w-80 md:h-80 w-full max-w-sm aspect-square object-contain"
+                        unoptimized
+                    />
+                )}
+            </div>
+            <div className="flex justify-center z-[2] bg-zinc-100 flex-wrap gap-3 py-4">
+                {pokemon.types.map((type) => (
+                    <TypesDisplay type={type} />
+                ))}
+            </div>
         </div>
     );
 };

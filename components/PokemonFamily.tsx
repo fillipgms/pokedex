@@ -28,16 +28,22 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
         return evolutions.map((evo) => (
             <div key={evo.species.name} className="flex items-center gap-3">
                 <IoIosArrowForward />
-                <PokemonDisplay {...evo} />
-                <div>{evo.evolves_to && renderEvolutions(evo.evolves_to)}</div>
+                <div className="flex flex-col items-center">
+                    <PokemonDisplay {...evo} />
+                    <h3>{evo.species.name}</h3>
+                </div>
+                <div className=" space-y-3">
+                    {evo.evolves_to && renderEvolutions(evo.evolves_to)}
+                </div>
             </div>
         ));
     };
 
     return (
-        <div className="flex items-center">
-            <div>
+        <div className="flex gap-3 px-10 items-center bg-zinc-100 justify-center py-2 w-full">
+            <div className="flex flex-col items-center">
                 <PokemonDisplay {...firstEvo} />
+                <h3>{firstEvo.species.name}</h3>
             </div>
             {firstEvo.evolves_to.length > 3 ? (
                 <div className="flex items-center">
@@ -49,7 +55,9 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
                     </div>
                 </div>
             ) : (
-                renderEvolutions(firstEvo.evolves_to)
+                <div className=" space-y-3">
+                    {renderEvolutions(firstEvo.evolves_to)}
+                </div>
             )}
         </div>
     );

@@ -3,7 +3,13 @@ import types from "@/data/types";
 import PokeAPI from "pokedex-promise-v2";
 import Image from "next/image";
 
-const TypesDisplay = (type: PokeAPI.PokemonType) => {
+const TypesDisplay = ({
+    type,
+    full = true,
+}: {
+    type: PokeAPI.PokemonType;
+    full?: boolean;
+}) => {
     return (
         <div
             style={{
@@ -21,7 +27,7 @@ const TypesDisplay = (type: PokeAPI.PokemonType) => {
                 }}
                 className="p-1.5"
             />
-            <span className="px-3">{type.type.name}</span>
+            {full && <span className="px-3">{type.type.name}</span>}
         </div>
     );
 };
