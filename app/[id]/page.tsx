@@ -45,7 +45,7 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
                 <span>{pokemon.name}</span>
             </header>
             <main className="md:space-y-3 space-y-10">
-                <section className="grid grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))] gap-5 md:pt-12 pt-20 min-h-svh">
+                <section className="grid grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))] gap-5 md:pt-12 pt-24 px-24 min-h-svh">
                     <PokemonDetails {...pokemon} />
                     <div className="flex items-center px-10 justify-center">
                         <PokemonImage {...pokemon} />

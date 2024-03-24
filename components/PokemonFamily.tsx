@@ -45,12 +45,10 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
     };
 
     return (
-        <section className="space-y-5 px-10 bg-zinc-100 py-2">
-            <div className="">
-                <h2 className="bg-red-600 w-fit mx-auto text-zinc-100 px-5 py-2 rounded-md font-bold">
-                    Evolution Line
-                </h2>
-            </div>
+        <section className="space-y-5 px-10 bg-zinc-100 py-5">
+            <h2 className="bg-red-600 w-fit mx-auto text-zinc-100 px-5 py-2 rounded-md font-bold">
+                Evolution Chain
+            </h2>
 
             <div className="flex gap-3 items-center flex-wrap justify-center">
                 <div className="flex flex-col items-center">
