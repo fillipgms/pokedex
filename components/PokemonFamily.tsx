@@ -50,7 +50,7 @@ const PokemonFamily = async (pokemon: PokeAPI.Pokemon) => {
                     <IoIosArrowForward />
                     <div className="grid grid-cols-3">
                         {firstEvo.evolves_to.map((evo) => (
-                            <PokemonDisplay {...evo} />
+                            <PokemonDisplay {...evo} key={evo.species.name} />
                         ))}
                     </div>
                 </div>

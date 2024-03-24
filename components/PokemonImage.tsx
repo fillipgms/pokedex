@@ -81,7 +81,7 @@ const PokemonImage = (pokemon: PokeAPI.Pokemon) => {
             </div>
             <div className="flex justify-center z-[2] bg-zinc-100 flex-wrap gap-3 py-4">
                 {pokemon.types.map((type) => (
-                    <TypesDisplay type={type} />
+                    <TypesDisplay type={type} key={type.type.name} />
                 ))}
             </div>
         </div>

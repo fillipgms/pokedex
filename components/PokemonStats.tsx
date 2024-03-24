@@ -26,7 +26,10 @@ const PokemonStats = async (pokemon: PokeAPI.Pokemon) => {
     return (
         <div className="flex flex-col gap-3 w-full justify-center px-10">
             {pokemon.stats.map((stat) => (
-                <div className="flex capitalize gap-3 items-center font-bold">
+                <div
+                    className="flex capitalize gap-3 items-center font-bold"
+                    key={stat.stat.name}
+                >
                     <h2>{stat.stat.name}: </h2>
                     <div className="bg-neutral-200 flex-1 w-full rounded-md overflow-hidden">
                         <div
