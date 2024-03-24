@@ -4,8 +4,6 @@ import PokeAPI from "pokedex-promise-v2";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import types from "@/data/types";
-import { MdCatchingPokemon } from "react-icons/md";
-import PokeballIcon from "@/public/PokeballIcon.svg";
 import TypesDisplay from "./TypesDisplay";
 
 const PokemonImage = (pokemon: PokeAPI.Pokemon) => {
@@ -79,10 +77,8 @@ const PokemonImage = (pokemon: PokeAPI.Pokemon) => {
                     />
                 )}
             </div>
-            <div className="flex justify-center z-[2] bg-zinc-100 flex-wrap gap-3 py-4">
-                {pokemon.types.map((type) => (
-                    <TypesDisplay type={type} key={type.type.name} />
-                ))}
+            <div className="z-[2] bg-zinc-100 py-4">
+                <TypesDisplay pokemon={pokemon} />
             </div>
         </div>
     );

@@ -1,21 +1,38 @@
 import React from "react";
 import PokeAPI from "pokedex-promise-v2";
-import TypesDisplay from "./TypesDisplay";
+import types from "@/data/types";
 
 const PokemonDetails = async (pokemon: PokeAPI.Pokemon) => {
     return (
-        <div className=" flex justify-center px-10 flex-col">
+        <div className="flex justify-center space-y-2 px-10 flex-col">
             <div className="flex gap-3">
-                <h2>Id:</h2>
-                <span>{pokemon.id}</span>
+                <h2 className="font-bold">ID:</h2>
+                <span>#{pokemon.id}</span>
             </div>
             <div className="flex gap-3">
-                <h2>Height:</h2>
+                <h2 className="font-bold">Height:</h2>
                 <span>{`${pokemon.height / 10}m`}</span>
             </div>
             <div className="flex gap-3">
-                <h2>Weight:</h2>
+                <h2 className="font-bold">Weight:</h2>
                 <span>{`${pokemon.weight / 10}kg`}</span>
+            </div>
+            <div className="flex gap-3 items-center">
+                <h2 className="font-bold">Abilities:</h2>
+                <div className="flex flex-wrap gap-2">
+                    {pokemon.abilities.map((abilitie) => (
+                        <div
+                            style={{
+                                backgroundColor:
+                                    types[pokemon.types[0].type.name].bg,
+                            }}
+                            className="py-1 px-4 rounded-md text-white"
+                            key={abilitie.ability.name}
+                        >
+                            {abilitie.ability.name}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
