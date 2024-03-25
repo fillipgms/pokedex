@@ -1,9 +1,9 @@
 import PokeAPI from "pokedex-promise-v2";
-import { IoIosArrowBack } from "react-icons/io";
-import generations from "@/data/generations";
+import React from "react";
+import PokemonHeader from "@/components/PokemonHeader";
+import PokemonDetails from "@/components/PokemonDetails";
 import PokemonImage from "@/components/PokemonImage";
 import PokemonStats from "@/components/PokemonStats";
-import PokemonDetails from "@/components/PokemonDetails";
 import PokemonFamily from "@/components/PokemonFamily";
 
 interface HomePageProps {
@@ -25,35 +25,17 @@ export default async function PokemonPage({ params: { id } }: HomePageProps) {
 
     const pokemon = (await res.json()) as PokeAPI.Pokemon;
 
-    let generation: string | number = 1;
-    for (const key in generations) {
-        if (Object.prototype.hasOwnProperty.call(generations, key)) {
-            const gen = generations[key];
-            if (pokemon.id <= gen.offset + gen.count) {
-                generation = key;
-                break;
-            }
-        }
-    }
-
     return (
-        <>
-            <header className="py-3 bg-zinc-100 shadow-xl z-[3] fixed w-full md:px-16 flex items-center gap-3 capitalize font-semibold">
-                <a href={`/?gen=${generation}`}>
-                    <IoIosArrowBack />
-                </a>
-                <span>{pokemon.name}</span>
-            </header>
-            <main className="md:space-y-3 space-y-10">
-                <section className="grid grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))] gap-5 md:pt-12 pt-24 px-24 min-h-svh">
+        <React.Fragment>
+            <PokemonHeader {...pokemon} />
+            <main className="pt-12 space-y-3">
+                <section className="grid px-10 md:px-28 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] min-h-svh items-center">
                     <PokemonDetails {...pokemon} />
-                    <div className="flex items-center px-10 justify-center">
-                        <PokemonImage {...pokemon} />
-                    </div>
+                    <PokemonImage {...pokemon} />
                     <PokemonStats {...pokemon} />
                 </section>
                 <PokemonFamily {...pokemon} />
             </main>
-        </>
+        </React.Fragment>
     );
 }

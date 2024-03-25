@@ -11,14 +11,11 @@ const PokemonStats = async (pokemon: PokeAPI.Pokemon) => {
     }
 
     return (
-        <div className="flex flex-col gap-3 w-full justify-center">
+        <div className="gap-y-3 gap-x-2 w-full grid grid-cols-[auto,_1fr] ">
             {pokemon.stats.map((stat) => (
-                <div
-                    className="flex capitalize gap-3 text-right items-center font-bold"
-                    key={stat.stat.name}
-                >
-                    <h2 className="flex-1">{stat.stat.name}: </h2>
-                    <div className="bg-neutral-200 flex-1 w-full rounded-md overflow-hidden">
+                <React.Fragment key={stat.stat.name}>
+                    <h2 className="text-right font-bold">{stat.stat.name}: </h2>
+                    <div className="bg-neutral-200 w-full rounded-md">
                         <div
                             style={{
                                 backgroundColor:
@@ -27,12 +24,12 @@ const PokemonStats = async (pokemon: PokeAPI.Pokemon) => {
                                     (stat.base_stat / highestValue) * 100
                                 }%`,
                             }}
-                            className="h-full py-0.5 px-3 text-end text-white"
+                            className="py-0.5 px-3 text-end rounded-md text-white"
                         >
-                            <span className="shadow-2xl">{stat.base_stat}</span>
+                            <span className="font-bold">{stat.base_stat}</span>
                         </div>
                     </div>
-                </div>
+                </React.Fragment>
             ))}
         </div>
     );

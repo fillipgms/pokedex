@@ -4,7 +4,7 @@ import types from "@/data/types";
 
 const PokemonDetails = async (pokemon: PokeAPI.Pokemon) => {
     return (
-        <div className="flex justify-center space-y-2 flex-col">
+        <div className="space-y-3 ">
             <div className="flex gap-3">
                 <h2 className="font-bold">ID:</h2>
                 <span>#{pokemon.id}</span>
@@ -26,7 +26,7 @@ const PokemonDetails = async (pokemon: PokeAPI.Pokemon) => {
                                 backgroundColor:
                                     types[pokemon.types[0].type.name].bg,
                             }}
-                            className="py-1 px-4 rounded-md text-white"
+                            className="py-1 shadow-md px-4 rounded-md text-white"
                             key={abilitie.ability.name}
                         >
                             {abilitie.ability.name}
