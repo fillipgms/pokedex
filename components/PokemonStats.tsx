@@ -18,13 +18,11 @@ const PokemonStats = async (pokemon: PokeAPI.Pokemon) => {
                     <div className="bg-neutral-200 w-full rounded-md">
                         <div
                             style={{
-                                backgroundColor:
-                                    types[pokemon.types[0].type.name].bg,
                                 width: `${
                                     (stat.base_stat / highestValue) * 100
                                 }%`,
                             }}
-                            className="py-0.5 px-3 text-end rounded-md text-white"
+                            className="py-0.5 bg-red-500 px-3 text-end rounded-md text-white"
                         >
                             <span className="font-bold">{stat.base_stat}</span>
                         </div>

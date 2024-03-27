@@ -22,11 +22,7 @@ const PokemonDetails = async (pokemon: PokeAPI.Pokemon) => {
                 <div className="flex flex-wrap gap-2">
                     {pokemon.abilities.map((abilitie) => (
                         <div
-                            style={{
-                                backgroundColor:
-                                    types[pokemon.types[0].type.name].bg,
-                            }}
-                            className="py-1 shadow-md px-4 rounded-md text-white"
+                            className="py-1 shadow-md bg-red-500 px-4 rounded-md font-bold text-white"
                             key={abilitie.ability.name}
                         >
                             {abilitie.ability.name}
